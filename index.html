@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hush | Covert Intelligence</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --text-color: #d1d5db;
+            --accent: #00ff88;
+            --accent-glow: rgba(0, 255, 136, 0.3);
+            --card-bg: #111115;
+            --border: #1f2937;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 136, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 255, 136, 0.05), transparent 25%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            font-family: monospace;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.5;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .instructions {
+            list-style: none;
+            counter-reset: my-counter;
+        }
+
+        .instructions li {
+            counter-increment: my-counter;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .instructions li::before {
+            content: counter(my-counter);
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 28px;
+            height: 28px;
+            background: #1f2937;
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: 1px solid var(--border);
+        }
+
+        .code-block {
+            background: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            color: var(--accent);
+            border: 1px solid #1f2937;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .request-section {
+            text-align: center;
+            padding: 2rem 0;
+            border-color: #3b82f6;
+        }
+        
+        .request-section::before {
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+        }
+
+        footer {
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Hush<span>.</span></h1>
+        <p class="subtitle">Silent ghost protocol initialized. Intercepting payloads.</p>
+    </header>
+
+    <div class="card request-section" id="gatekeeperCard">
+        <h2>Enter Access Key</h2>
+        <p style="margin-bottom: 2rem; color: #9ca3af;">The Hush payload is strictly classified. Enter your License Key to access the download.</p>
+        
+        <form id="unlockForm">
+            <div class="form-group">
+                <input type="text" id="accessKeyInput" placeholder="e.g. HUSH-XXXX-XXXX" required style="text-align: center; font-size: 1.1rem; letter-spacing: 2px;">
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Authenticate & Unlock</button>
+        </form>
+        <div id="unlockMsg" style="margin-top: 15px; font-weight: bold;"></div>
+        <div style="margin-top: 1.5rem;">
+            <a href="#" id="showRequestFormBtn" style="color: #9ca3af; text-decoration: underline; font-size: 0.9rem;">Don't have a key? Request Access</a>
+        </div>
+    </div>
+
+    <div class="card request-section" id="requestFormCard" style="display: none;">
+        <h2>Request Access Key</h2>
+        <p style="margin-bottom: 2rem; color: #9ca3af;">Hush is a private protocol. You must request a License Key to activate the payload.</p>
+        
+        <form id="accessForm">
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="reqName" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label>Contact Info (Discord / WhatsApp / Email)</label>
+                <input type="text" id="reqContact" placeholder="Where should we send the key?" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%; color:#3b82f6; border-color:#3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);">Submit Request</button>
+        </form>
+        <div id="requestMsg" style="margin-top: 15px; font-weight: bold;"></div>
+        <div style="margin-top: 1.5rem;">
+            <a href="#" id="showUnlockFormBtn" style="color: #9ca3af; text-decoration: underline; font-size: 0.9rem;">Already have a key? Unlock Website</a>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <div class="card download-section" style="margin-bottom: 3rem;">
+            <h2>Initiate Download</h2>
+            <p style="margin-bottom: 2rem; color: #9ca3af;">Get the latest encrypted build of the Hush extension payload.</p>
+            <a href="Hush_Extension.zip" class="btn" download>Download Package (.zip)</a>
+        </div>
+
+    <div class="card">
+        <h2>Installation Override Protocol (Chrome / Edge / Brave)</h2>
+        <p style="margin-bottom: 2rem; color: #9ca3af; font-size: 0.95rem;">Due to advanced security protocols, this payload cannot be distributed via standard web stores. Follow the manual override instructions below.</p>
+        
+        <ul class="instructions">
+            <li><strong>Extract the Payload:</strong> Unzip the downloaded <span class="code-block">Hush_Extension.zip</span> file to a folder on your computer.</li>
+            <li><strong>Access Extensions Dashboard:</strong> Open your browser and navigate to <span class="code-block">chrome://extensions/</span> in the URL bar.</li>
+            <li><strong>Enable Developer Override:</strong> Toggle the <strong>Developer mode</strong> switch in the top right corner of the page to the ON position.</li>
+            <li><strong>Load the Package:</strong> Click the <strong>Load unpacked</strong> button in the top left corner.</li>
+            <li><strong>Select Directory:</strong> Choose the folder you extracted in Step 1. The ghost protocol will instantly initialize.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Installation Override Protocol (Firefox)</h2>
+        <ul class="instructions">
+            <li><strong>Extract the Payload:</strong> Unzip the downloaded <span class="code-block">Hush_Extension.zip</span> file to a folder.</li>
+            <li><strong>Access Debug Dashboard:</strong> Open Firefox and navigate to <span class="code-block">about:debugging#/runtime/this-firefox</span> in the URL bar.</li>
+            <li><strong>Load Temporary Add-on:</strong> Click the <strong>Load Temporary Add-on...</strong> button.</li>
+            <li><strong>Select Manifest:</strong> Open the extracted folder and select the <span class="code-block">manifest.json</span> file. The protocol is now active.</li>
+        </ul>
+    </div>
+    
+    </div>
+    
+    <footer>
+        <p>[ENCRYPTED] // Hush Protocol v3.5 // Unauthorized distribution is prohibited.</p>
+    </footer>
+</div>
+
+<script>
+    const SUPABASE_URL = "https://cpnjfxkegppdlvkvnmn.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_gS6_E_Z7pcfngmk2dlD-nA_nVosLp0E";
+
+    // Toggle forms
+    document.getElementById('showRequestFormBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('gatekeeperCard').style.display = 'none';
+        document.getElementById('requestFormCard').style.display = 'block';
+    });
+    
+    document.getElementById('showUnlockFormBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('requestFormCard').style.display = 'none';
+        document.getElementById('gatekeeperCard').style.display = 'block';
+    });
+
+    // Handle Unlock
+    document.getElementById('unlockForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const keyInput = document.getElementById('accessKeyInput').value.trim();
+        const msgDiv = document.getElementById('unlockMsg');
+        
+        msgDiv.style.color = "#9ca3af";
+        msgDiv.innerText = "Authenticating key...";
+
+        try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/license_keys?key_string=ilike.${keyInput}&is_active=eq.true`, {
+                method: 'GET',
+                headers: { 
+                    "apikey": SUPABASE_KEY, 
+                    "Authorization": "Bearer " + SUPABASE_KEY
+                }
+            });
+
+            if (!res.ok) throw new Error("Authentication failed");
+            const data = await res.json();
+
+            if (data && data.length > 0) {
+                const keyData = data[0];
+                if (keyData.expires_at && new Date(keyData.expires_at) < new Date()) {
+                    msgDiv.style.color = "#f87171";
+                    msgDiv.innerText = "Access denied: Key has expired.";
+                    return;
+                }
+                
+                msgDiv.style.color = "#00ff88";
+                msgDiv.innerText = "Authentication successful. Unlocking payload...";
+                
+                setTimeout(() => {
+                    document.getElementById('gatekeeperCard').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'flex';
+                    document.getElementById('mainContent').style.flexDirection = 'column';
+                    document.getElementById('mainContent').style.gap = '3rem';
+                }, 800);
+            } else {
+                msgDiv.style.color = "#f87171";
+                msgDiv.innerText = "Access denied: Invalid or disabled key.";
+            }
+        } catch (err) {
+            msgDiv.style.color = "#f87171";
+            msgDiv.innerText = "System error: Could not verify key.";
+            console.error(err);
+        }
+    });
+
+    // Handle Request Access
+    document.getElementById('accessForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('reqName').value;
+        const contact = document.getElementById('reqContact').value;
+        const msgDiv = document.getElementById('requestMsg');
+        
+        msgDiv.style.color = "#9ca3af";
+        msgDiv.innerText = "Transmitting request...";
+
+        try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/access_requests`, {
+                method: 'POST',
+                headers: { 
+                    "apikey": SUPABASE_KEY, 
+                    "Authorization": "Bearer " + SUPABASE_KEY,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name: name, contact_info: contact })
+            });
+
+            if (res.ok) {
+                msgDiv.style.color = "#00ff88";
+                msgDiv.innerText = "Request received. We will contact you shortly.";
+                document.getElementById('accessForm').reset();
+            } else {
+                throw new Error("Transmission failed.");
+            }
+        } catch (err) {
+            msgDiv.style.color = "#f87171";
+            msgDiv.innerText = "Error: Database connection refused.";
+            console.error(err);
+        }
+    });
+</script>
+</body>
+</html>
