@@ -293,8 +293,8 @@
 </div>
 
 <script>
-    const SUPABASE_URL = "https://cpnjfxxkegppdivkvnmn.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_gS6_E_Z7pcfngmk2dlD-nA_nVosLp0E";
+    // Pointing directly to our secure proxy server!
+    const BACKEND_URL = "https://my-extension-sao.onrender.com";
 
     // Toggle forms
     document.getElementById('showRequestFormBtn').addEventListener('click', (e) => {
@@ -319,25 +319,17 @@
         msgDiv.innerText = "Authenticating key...";
 
         try {
-            const res = await fetch(`${SUPABASE_URL}/rest/v1/license_keys?key_string=ilike.${keyInput}&is_active=eq.true`, {
-                method: 'GET',
-                headers: { 
-                    "apikey": SUPABASE_KEY, 
-                    "Authorization": "Bearer " + SUPABASE_KEY
-                }
+            const res = await fetch(`${BACKEND_URL}/validate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ licenseKey: keyInput, deviceId: "website-check" })
             });
 
             if (!res.ok) throw new Error("Authentication failed");
             const data = await res.json();
 
-            if (data && data.length > 0) {
-                const keyData = data[0];
-                if (keyData.expires_at && new Date(keyData.expires_at) < new Date()) {
-                    msgDiv.style.color = "#f87171";
-                    msgDiv.innerText = "Access denied: Key has expired.";
-                    return;
-                }
-                
+            if (data) {
+                // If the response is OK, the backend already validated expiry and device lock!
                 msgDiv.style.color = "#00ff88";
                 msgDiv.innerText = "Authentication successful. Unlocking payload...";
                 
@@ -369,23 +361,17 @@
         msgDiv.innerText = "Transmitting request...";
 
         try {
-            const res = await fetch(`${SUPABASE_URL}/rest/v1/access_requests`, {
+            const res = await fetch(`${BACKEND_URL}/request`, {
                 method: 'POST',
-                headers: { 
-                    "apikey": SUPABASE_KEY, 
-                    "Authorization": "Bearer " + SUPABASE_KEY,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ name: name, contact_info: contact })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, contact })
             });
-
-            if (res.ok) {
-                msgDiv.style.color = "#00ff88";
-                msgDiv.innerText = "Request received. We will contact you shortly.";
-                document.getElementById('accessForm').reset();
-            } else {
-                throw new Error("Transmission failed.");
-            }
+            
+            if (!res.ok) throw new Error("Request failed");
+            
+            msgDiv.style.color = "#00ff88";
+            msgDiv.innerText = "Request received. We will contact you shortly.";
+            document.getElementById('accessForm').reset();
         } catch (err) {
             msgDiv.style.color = "#f87171";
             msgDiv.innerText = "Error: Database connection refused.";
