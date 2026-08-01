@@ -258,8 +258,11 @@
     <div id="mainContent" style="display: none;">
         <div class="card download-section" style="margin-bottom: 3rem;">
             <h2>Initiate Download</h2>
-            <p style="margin-bottom: 2rem; color: #9ca3af;">Get the latest encrypted build of the Hush extension payload.</p>
-            <a href="Hush_Extension.zip" class="btn" download>Download Package (.zip)</a>
+            <p style="margin-bottom: 2rem; color: #9ca3af;">Get the latest encrypted build of the Hush extension payload optimized for your browser.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="Hush_Extension_Chrome.zip" class="btn" download>Download for Chrome / Edge / Brave</a>
+                <a href="Hush_Extension_Firefox.zip" class="btn" download style="color: #ff9900; border-color: #ff9900; box-shadow: 0 0 15px rgba(255, 153, 0, 0.15);">Download for Firefox</a>
+            </div>
         </div>
 
     <div class="card">
@@ -267,7 +270,7 @@
         <p style="margin-bottom: 2rem; color: #9ca3af; font-size: 0.95rem;">Due to advanced security protocols, this payload cannot be distributed via standard web stores. Follow the manual override instructions below.</p>
         
         <ul class="instructions">
-            <li><strong>Extract the Payload:</strong> Unzip the downloaded <span class="code-block">Hush_Extension.zip</span> file to a folder on your computer.</li>
+            <li><strong>Extract the Payload:</strong> Unzip the downloaded <span class="code-block">Hush_Extension_Chrome.zip</span> file to a folder on your computer.</li>
             <li><strong>Access Extensions Dashboard:</strong> Open your browser and navigate to <span class="code-block">chrome://extensions/</span> in the URL bar.</li>
             <li><strong>Enable Developer Override:</strong> Toggle the <strong>Developer mode</strong> switch in the top right corner of the page to the ON position.</li>
             <li><strong>Load the Package:</strong> Click the <strong>Load unpacked</strong> button in the top left corner.</li>
@@ -278,7 +281,7 @@
     <div class="card">
         <h2>Installation Override Protocol (Firefox)</h2>
         <ul class="instructions">
-            <li><strong>Extract the Payload:</strong> Unzip the downloaded <span class="code-block">Hush_Extension.zip</span> file to a folder.</li>
+            <li><strong>Extract the Payload:</strong> Unzip the downloaded <span class="code-block">Hush_Extension_Firefox.zip</span> file to a folder.</li>
             <li><strong>Access Debug Dashboard:</strong> Open Firefox and navigate to <span class="code-block">about:debugging#/runtime/this-firefox</span> in the URL bar.</li>
             <li><strong>Load Temporary Add-on:</strong> Click the <strong>Load Temporary Add-on...</strong> button.</li>
             <li><strong>Select Manifest:</strong> Open the extracted folder and select the <span class="code-block">manifest.json</span> file. The protocol is now active.</li>
